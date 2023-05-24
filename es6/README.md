@@ -1,6 +1,6 @@
 # ES6
 
-## ES6 là gì?
+## 1. ES6 là gì?
 
 #### ES6 (ECMAScript 2015) là phiên bản tiêu chuẩn thứ sáu của ECMAScript, một ngôn ngữ kịch bản được sử dụng phổ biến trong việc lập trình web. ES6 được công bố vào năm 2015 và đã mang đến nhiều cải tiến quan trọng cho ngôn ngữ JavaScript.
 
@@ -56,6 +56,10 @@ PI = 3.14; // Lỗi! không thể gán giá trị lại cho hằng số.
 3. Cải thiện hiệu suất và tốc độ thực thi mã: Bằng cách cung cấp thông tin về phạm vi và tính chất không thay đổi của biến.
 4. Giúp mã của bạn tuân thủ tiêu chuẩn mới nhất và tương thích với các trình biên dịch và môi trường JS hiện đại.
 
+### scope
+
+> Là phạm vi tồn tại của một biến. Biến được khai báo bên trong một block code chỉ có thể sử dụng bên trong block đó. Tuy nhiên đối với trường hợp biến được khai báo với từ khóa `var` thì có thể sử dụng global. Lưu ý: biến khai báo bên trong `function` bằng từ khóa `var` thì chỉ sử sử dụng được trong `function`.
+
 ### Hoisting
 
 > Hoisting là hành động mặc định của JS, nó sẽ chuyển phần khai báo lên top của phạm vi mà nó được khai báo.
@@ -93,4 +97,42 @@ function showHello() {
 }
 
 showHello();
+```
+
+- Lưu ý:
+  > Hoisting đối với biến trong function: khai báo biến được đưa lên đầu scope function.
+  > Đối với block scope khác (if esle, {}, ...) thì biên khai báo bên trong với từ khóa var sẽ được hoisting ra ngoài scope block.
+
+## Template Literals
+
+> Template Literals trong js (còn được gọi là template strings) là một tính năng cho phép nhúng `biểu thức` và `chuỗi` vào trong một chuỗi văn bản đơn giản. Điều này giúp tạo ra các chuỗi phức tạp một cách dễ đọc và dễ hiểu hơn.
+
+> Biểu diễn bằng cặp dấu backtick (``).
+
+> Có thể sử dụng biểu thức JS và nhúng giá trị của biến vào bằng cách sử dụng `${expression}`.
+
+- Ví dụ:
+
+```js
+const name = "John";
+const age = 30;
+
+// Sử dụng template literals để tạo chuỗi
+const message = `Xin chào, tôi là ${name} và tôi ${age} tuổi.`;
+
+console.log(message);
+// Kết quả: "Xin chào, tôi là John và tôi 30 tuổi."
+```
+
+- Ví dụ chèn biểu thức vào chuỗi:
+
+```js
+const a = 5;
+const b = 10;
+
+// Sử dụng template literals để tính tổng và hiển thị kết quả
+const result = `Tổng của ${a} và ${b} là ${a + b}`;
+
+console.log(result);
+// Kết quả: "Tổng của 5 và 10 là 15"
 ```
