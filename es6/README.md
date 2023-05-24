@@ -25,6 +25,6 @@ Một số tính năng quan trọng của ES6 bao gồm:
 . `let` được sử dụng để khai báo một biến có phạm vi (scope) chỉ trong khối mã (block scope) mà nó được khai báo.
 . Biến được khai báo bằng `let` có thể được gán lại giá trị mới.
 . Ví dụ:
-`  let x = 5;
+```  let x = 5;
   x = 10;
-  console.log(x); // output 10`
+  console.log(x); // output 10```
