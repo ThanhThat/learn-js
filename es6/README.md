@@ -8,7 +8,7 @@ Một số tính năng quan trọng của ES6 bao gồm:
 
 - Khai báo biến với let và const: ES6 giới thiệu hai từ khóa mới để khai báo biến, let và const, để thay thế cho var. let được sử dụng để khai báo biến có phạm vi chỉ trong khối lệnh, trong khi const được sử dụng để khai báo một hằng số không thể thay đổi giá trị sau khi gán.
 
-- Arrow functions (Hàm mũi tên): Arrow functions cung cấp một cú pháp ngắn gọn để định nghĩa hàm trong JavaScript. Chúng giúp rút ngắn cú pháp và tự ràng buộc ngữ cảnh this trong hàm.
+- Arrow functions (Hàm mũi tên): Arrow functions cung cấp một cú pháp ngắn gọn để định nghĩa hàm trong JavaScript. Chúng giúp rút ngắn cú pháp và tự ràng buộc ngữ cảnh `this` trong hàm.
 
 - Template literals: Template literals cho phép nhúng biểu thức và chuỗi vào một chuỗi nhiều dòng bằng cách sử dụng cú pháp backtick ( ) thay vì dấu nháy đơn hoặc nháy kép. Điều này giúp viết mã HTML hoặc chuỗi dễ dàng hơn.
 
@@ -136,3 +136,78 @@ const result = `Tổng của ${a} và ${b} là ${a + b}`;
 console.log(result);
 // Kết quả: "Tổng của 5 và 10 là 15"
 ```
+
+## Strict mode (Chế độ nghiêm ngặt)
+
+- Khái niệm: chế độ làm việc khắc khe hơn với việc kiểm soát và giới hạn một số tính năng ngôn ngữ Javascript để tránh những lỗi phổ biến và các hành vi không mong muốn.
+
+* Đê bật `strict mode`, bạn có thể đặt `"use strict";`, ở đầu một file js hoặc ở đầu một hàm riêng lẻ. Ví dụ:
+
+```js
+// Bật strict mode cho toàn bộ file js
+"use strict";
+
+// Hoặc bật stict mode cho một hàm riêng lẻ.
+function myFunction() {
+  "use trict";
+  // Nội dung của hàm ...
+}
+```
+
+- **Các tính năng được áp dụng khi bật `strict mode` bao gồm:**
+
+1. Khai báo biến bắt buộc: bạn phải sử dụng từ khóa `var`, `let` hoặc `const` để khai báo biến trước khi sử dụng nó. Nếu không, sẽ xảy ra lỗi.
+
+2. Cấm khai báo biến toàn cục ngầm định: biến không được khai báo bằng từ khóa `var`, `let` hoặc `const` trong một hàm sẽ bị coi là biến toàn cục, và điều này bị cấm trong `strict mode`
+
+3. Cấm gán giá trị cho biến không khai báo.
+
+4. Cấm ghi đè lên các từ khóa `eval`, `arguments`, và `implements` và sử dụng như tên biến.
+
+5. Cấm xóa biến, hàm hoặc hàm xây dựng. Sử dụng `delete` để xóa sẽ gây ra lỗi.
+
+6. Cấm tham chiếu đến `this` không xác định: nếu `this` không được xác định trong phạm vi, nó sẽ có giá trị `undefined`
+
+7. Cấm tham số trùng lặp: không được đặt các tham số với tên trùng lặp trong một hàm.
+
+- Ví dụ non-strict-mode:
+
+```js
+function myFunction(a, b, a) {
+  console.log(a, b);
+}
+myFunction(1, 2, 3); //Output: 3, 2
+```
+
+- Ví dụ `use strict`:
+
+```js
+function myFunction(a, b, a) {
+  console.log(a, b);
+} // Output: Erro
+myFunction(1, 2, 3);
+```
+
+8. Cấm gán giá trị cho hằng số (constants).
+
+9. Biến không được ghi đè toàn cục: Không được ghi đè lên các biến toàn cục bằng cách khai báo biến với tên trùng lặp.
+
+10. Nạp chồng toán tử giới hạn: Một số toán tử như delete, void, và eval không thể được nạp chồng hoặc sử dụng theo cách khác nhau.
+
+11. Dùng this trong hàm: Khi sử dụng this trong một hàm, this không được ràng buộc tới đối tượng toàn cục (window trong trình duyệt).
+
+12. Chế độ nghiêm ngặt với eval(): Trong strict mode, mã được đánh giá thông qua hàm eval() sẽ chạy trong một phạm vi cục bộ, không ảnh hưởng đến phạm vi xung quanh.
+
+13. Các chế độ kiểm tra cảnh báo: Các cảnh báo không được thông báo trong strict mode, mà thay vào đó sẽ gây ra các ngoại lệ (TypeError, ReferenceError) trong trường hợp những hành vi không hợp lệ.
+
+14. Các giá trị NaN, Infinity và undefined không thể gán lại: Trong strict mode, không thể gán lại giá trị cho các hằng số toàn cục như NaN, Infinity và undefined.
+
+15. Các lỗi cú pháp nghiêm ngặt hơn: Strict mode yêu cầu cú pháp của JavaScript phải chính xác hơn. Ví dụ, việc sử dụng một từ khóa bị cấm như let làm tên biến sẽ gây ra một lỗi cú pháp trong strict mode, trong khi nó chỉ là một cảnh báo trong chế độ thông thường.
+
+16. arguments bị hạn chế: Trong strict mode, arguments chỉ trỏ đến các đối số thực sự được truyền vào hàm và không cho phép ghi đè lên các đối số.
+
+17. with bị cấm: Sử dụng từ khóa with là không được phép trong strict mode. Việc sử dụng with có thể gây ra các lỗi và làm cho mã khó hiểu và khó bảo trì.
+
+18. Các phép gán bị hạn chế: Trong strict mode, các phép gán không hợp lệ như gán giá trị cho chỉ mục của một chuỗi được coi là lỗi cú pháp.
+
+19. Hàm eval bị hạn chế: Sử dụng hàm eval để chuyển đổi một chuỗi thành mã JavaScript được giới hạn hơn trong strict mode. Mã trong eval không được có tác động đến phạm vi xung quanh hoặc tạo ra các biến toàn cục.
