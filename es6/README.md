@@ -211,3 +211,35 @@ myFunction(1, 2, 3);
 18. Các phép gán bị hạn chế: Trong strict mode, các phép gán không hợp lệ như gán giá trị cho chỉ mục của một chuỗi được coi là lỗi cú pháp.
 
 19. Hàm eval bị hạn chế: Sử dụng hàm eval để chuyển đổi một chuỗi thành mã JavaScript được giới hạn hơn trong strict mode. Mã trong eval không được có tác động đến phạm vi xung quanh hoặc tạo ra các biến toàn cục.
+
+## Arrow function
+
+- Arrow function là một cú pháp viết ngắn gọn để định nghĩa các hàm trong JavaScript. Nó được giới thiệu trong ECMAScript 6 (ES6) và cung cấp một cách mới để khai báo hàm so với cú pháp truyền thống.
+
+* Đây là cú pháp của arrow function:
+
+```js
+const functionName = (parameters) => {
+  // code block
+};
+```
+
+- Một số điểm quan trọng về arrow function:
+
+1. Nếu hàm chỉ có một tham số, bạn có thể bỏ qua dấu ngoặc đơn xung quanh tham số.
+2. Nếu phần thân hàm chỉ có một câu lệnh trả về giá trị, bạn có thể bỏ qua cả từ khóa return và dấu ngoặc nhọn {}. Giá 3. trị của câu lệnh đó sẽ được tự động trả về.
+3. Arrow function không có context this riêng, mà nó sử dụng context của hàm gần nhất hoặc context global (nếu không có hàm bao ngoài).
+
+- Dưới đây là một ví dụ minh họa:
+
+```js
+// Hàm truyền thống
+function multiply(a, b) {
+  return a * b;
+}
+
+// Arrow function tương đương
+const multiply = (a, b) => a * b;
+```
+
+> Arrow function giúp viết mã ngắn gọn và dễ đọc hơn, đặc biệt là trong các trường hợp sử dụng hàm nặc danh hoặc các hàm callback.
