@@ -243,3 +243,103 @@ const multiply = (a, b) => a * b;
 ```
 
 > Arrow function giúp viết mã ngắn gọn và dễ đọc hơn, đặc biệt là trong các trường hợp sử dụng hàm nặc danh hoặc các hàm callback.
+
+## Classes
+
+- Trong JavaScript, classes là một cách để tạo ra các đối tượng dựa trên một mô hình đã định nghĩa trước. Một lớp (class) trong JavaScript bao gồm các thuộc tính (properties) và các phương thức (methods) để định nghĩa hành vi của đối tượng. Để tạo ra một lớp trong JavaScript, bạn có thể sử dụng cú pháp sau:
+
+```js
+class MyClass {
+  constructor() {
+    // Phương thức khởi tạo, được gọi khi tạo một đối tượng mới
+  }
+
+  // Các phương thức khác của lớp
+  myMethod() {
+    // Thực hiện một hành động nào đó
+  }
+
+  // Các thuộc tính khác của lớp
+  myProperty = "Giá trị của thuộc tính";
+}
+```
+
+- Trong ví dụ trên, `MyClass` là tên của lớp. Phương thức khởi tạo `constructor` được gọi khi tạo một đối tượng mới từ lớp này. Bên trong phương thức khởi tạo, bạn có thể thiết lập các thuộc tính ban đầu của đối tượng.
+
+- `myMethod` là một phương thức của lớp, và `myProperty` là một thuộc tính của lớp. Bạn có thể thêm các phương thức và thuộc tính khác vào lớp để mô tả các hành vi và trạng thái của đối tượng.
+
+- Để tạo một đối tượng từ lớp, bạn sử dụng từ khóa `new` như sau:
+
+```js
+const myObject = new MyClass();
+```
+
+- Bây giờ, `myObject` là một đối tượng của lớp `MyClass`, và bạn có thể gọi các phương thức và truy cập các thuộc tính của nó:
+
+```js
+myObject.myMethod(); // Gọi phương thức myMethod()
+console.log(myObject.myProperty); // Truy cập thuộc tính myProperty
+```
+
+> Đây chỉ là một ví dụ đơn giản về cách tạo và sử dụng một lớp trong **JavaScript**. Có nhiều khái niệm và tính năng phức tạp hơn liên quan đến lớp trong **JavaScript**, chẳng hạn như **kế thừa**,** phạm vi**, `getter` và `setter`.
+
+### Encapsulation (đóng gói)
+
+- Cho phép **che giấu thông tin** và **quản lý truy cập** vào các **thuộc tính** và **phương thức** của một đối tượng.
+- Giúp **bảo vệ dữ liệu** và **cung cấp các phương thức công khai** để tương tác với đối tượng đó.
+- Có thể **kiểm soát quyền truy cập** và **hạn chế sự thay đổi trực tiếp của dữ liệu** trong đối tượng.
+
+- Dưới đây là một ví dụ thực tế về **encapsulation** trong JavaScript:
+
+```js
+class BankAccount {
+  #balance = 0; // Dữ liệu được đóng gói;
+
+  constructor(accountNumber, accountHolder) {
+    this.accountNumber = accountNumber; // Dữ liệu công khai;
+    this.accountHolder = accountHolder; // Dữ liệu công khai;
+  }
+
+  deposit(amount) {
+    this.#balance += amount; // Phương thức công khai
+  }
+
+  withdraw(amount) {
+    if (amout <= this.#balance) {
+      this.#balance -= amount; // Phương thức công khai
+    } else {
+      console.log("Số dư không đủ!");
+    }
+  }
+
+  getBalance() {
+    return this.#balance; // Phương thức công khai
+  }
+}
+
+const myAccount = new BankAccount("123456789", "Thanh That");
+myAccount.deposit(1000);
+myAccount.withdraw(500);
+console.log(myAccount.getBalance()); // Output: 500
+console.log(myAccount.accountNumber); // Output: 123456789
+```
+
+- Trong ví dụ trên, lớp `BankAccount` đại diện cho một tài khoản ngân hàng. Thuộc tính `accountNumber` và `accountHolder` được định nghĩa là công khai, có thể truy cập và sử dụng từ bên ngoài.
+
+* Tuy nhiên, thuộc tính `#balance` được khai báo bằng cú pháp `#` (ES10), tạo thành một thuộc tính riêng tư (private) không thể truy cập trực tiếp từ bên ngoài đối tượng. Thay vào đó, các phương thức `deposit`, `withdraw`, và `getBalance` được sử dụng để tương tác với `#balance`.
+
+* Nếu không muốn sử sử dụng `#` chúng ta có thể thay thế như sau:
+
+```js
+let balance = 0; // <=> #balance
+```
+
+- Khi tạo một đối tượng `myAccount` từ lớp `BankAccount`, bạn chỉ có thể truy cập các phương thức và thuộc tính công khai như `deposit`, `withdraw`, `getBalance`, `accountNumber`, trong khi `#balance` không thể truy cập trực tiếp.
+
+- `Encapsulation` trong ví dụ này cho phép che giấu `#balance` để ngăn người dùng thay đổi giá trị số dư trực tiếp mà phải thông qua các phương thức quản lý như `deposit` và `withdraw`. Điều này giúp đảm bảo rằng số dư chỉ được cập nhật và kiểm soát theo các quy tắc xác định trong các phương thức. Nó cung cấp một lớp bảo vệ cho dữ liệu để đảm bảo tính toàn vẹn và độ chính xác của các hoạt động liên quan đến tài khoản ngân hàng.
+
+- `Encapsulation` còn cho phép bạn thay đổi hoặc cải thiện triển khai bên trong của một đối tượng mà không ảnh hưởng đến các thành phần bên ngoài sử dụng nó. Điều này đảm bảo tính linh hoạt và dễ bảo trì của mã nguồn.
+
+- Trong tổ chức mã nguồn lớn hoặc dự án phức tạp, `encapsulation` giúp tạo ra giao diện rõ ràng và giới hạn quyền truy cập vào các thành phần nội bộ. Điều này giúp giảm sự phụ thuộc và đảm bảo rằng các thành phần bên ngoài chỉ có thể tương tác với đối tượng thông qua giao diện công khai đã được xác định trước, đồng thời giữ cho các thành phần bên trong an toàn và không bị ảnh hưởng bởi các thay đổi từ bên ngoài.
+
+> Tóm lại, `encapsulation` trong `JavaScript` cung cấp một cách để che giấu và kiểm soát truy cập vào dữ liệu và phương thức của đối tượng, tạo ra sự bảo vệ và quản lý thông tin trong mã nguồn.
