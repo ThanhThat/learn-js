@@ -328,12 +328,6 @@ console.log(myAccount.accountNumber); // Output: 123456789
 
 * Tuy nhiên, thuộc tính `#balance` được khai báo bằng cú pháp `#` (ES10), tạo thành một thuộc tính riêng tư (private) không thể truy cập trực tiếp từ bên ngoài đối tượng. Thay vào đó, các phương thức `deposit`, `withdraw`, và `getBalance` được sử dụng để tương tác với `#balance`.
 
-* Nếu không muốn sử sử dụng `#` chúng ta có thể thay thế như sau:
-
-```js
-let balance = 0; // <=> #balance
-```
-
 - Khi tạo một đối tượng `myAccount` từ lớp `BankAccount`, bạn chỉ có thể truy cập các phương thức và thuộc tính công khai như `deposit`, `withdraw`, `getBalance`, `accountNumber`, trong khi `#balance` không thể truy cập trực tiếp.
 
 - `Encapsulation` trong ví dụ này cho phép che giấu `#balance` để ngăn người dùng thay đổi giá trị số dư trực tiếp mà phải thông qua các phương thức quản lý như `deposit` và `withdraw`. Điều này giúp đảm bảo rằng số dư chỉ được cập nhật và kiểm soát theo các quy tắc xác định trong các phương thức. Nó cung cấp một lớp bảo vệ cho dữ liệu để đảm bảo tính toàn vẹn và độ chính xác của các hoạt động liên quan đến tài khoản ngân hàng.
@@ -343,3 +337,140 @@ let balance = 0; // <=> #balance
 - Trong tổ chức mã nguồn lớn hoặc dự án phức tạp, `encapsulation` giúp tạo ra giao diện rõ ràng và giới hạn quyền truy cập vào các thành phần nội bộ. Điều này giúp giảm sự phụ thuộc và đảm bảo rằng các thành phần bên ngoài chỉ có thể tương tác với đối tượng thông qua giao diện công khai đã được xác định trước, đồng thời giữ cho các thành phần bên trong an toàn và không bị ảnh hưởng bởi các thay đổi từ bên ngoài.
 
 > Tóm lại, `encapsulation` trong `JavaScript` cung cấp một cách để che giấu và kiểm soát truy cập vào dữ liệu và phương thức của đối tượng, tạo ra sự bảo vệ và quản lý thông tin trong mã nguồn.
+
+### Inheritance (kế thừa)
+
+- khả năng một đối tượng (hoặc lớp) lấy được các thuộc tính và phương thức của một đối tượng khác.
+- Nó cho phép tái sử dụng mã và tạo ra các mối quan hệ hiệu quả giữa các đối tượng.
+
+- Có một số cách để thực hiện kế thừa trong JavaScript. Dưới đây là một ví dụ thực tế sử dụng kế thừa trong JavaScript để hiểu rõ hơn:
+
+```js
+class Shape {
+  constructor(color) {
+    this.color = color;
+  }
+
+  getColor() {
+    return this.color;
+  }
+
+  print() {
+    console.log(`This is a ${this.color} shape.`);
+  }
+}
+
+// Định nghĩa lớp con 'Rectangle' kế thừa từ lớp cha 'Shape'
+class Rectangle extends shape {
+  constructor(color, width, height) {
+    super(color);
+    this.width = width;
+    this.height = height;
+  }
+
+  getArea() {
+    return this.width * this.height;
+  }
+
+  print() {
+    console.log(
+      `This is a ${this.color} rectangle width ${this.width} and height ${this.height}.`
+    );
+  }
+}
+
+const myRectangle = new Rectangle("red", 6, 12);
+console.log(myRectangle.getColor());
+console.log(myRectangle.getArea());
+console.log(myRedtangle.print());
+```
+
+> Trong JavaScript, khi một lớp con kế thừa từ một lớp cha, các thuộc tính và phương thức private không được kế thừa. Các thuộc tính và phương thức private chỉ có thể truy cập và sử dụng trong phạm vi của lớp cha và không thể truy cập từ bên ngoài lớp cha hoặc lớp con.
+
+```js
+class ParentClass {
+  #privateProperty = "private property"; // Private property
+
+  #privateMethod() {
+    console.log("This is a private method"); // Private method
+  }
+
+  publicMethod() {
+    console.log("This is a public method"); // Public method
+  }
+}
+
+class ChildClass extends ParentClass {
+  // Các thuộc tính và phương thức private không được kế thừa
+}
+
+const childObj = new ChildClass();
+childObj.publicMethod(); // Kế thừa phương thức public từ lớp cha
+childObj.#privateMethod(); // Lỗi - Không thể truy cập phương thức private từ lớp con
+console.log(childObj.#privateProperty); // Lỗi - Không thể truy cập thuộc tính private từ lớp con
+```
+
+> Dấu `#` là tiền tố dùng để khai báo thuộc tính và phương thức đó là private
+
+- Trong ví dụ trên, lớp con ChildClass kế thừa phương thức public publicMethod() từ lớp cha ParentClass, nhưng không kế thừa thuộc tính và phương thức private #privateProperty và #privateMethod().
+
+- Việc không kế thừa các thuộc tính và phương thức private là do tính chất của chúng, được giới hạn trong phạm vi của lớp cha và không phải là một phần của giao diện public của lớp.
+
+Trong JavaScript, các thuộc tính và phương thức private không thể được kế thừa trực tiếp bởi lớp con, nhưng chúng vẫn có thể được truy cập thông qua các phương thức public của lớp cha.
+
+- Dưới đây là một ví dụ minh họa:
+
+```js
+class ParentClass {
+  #privateProperty = "private property"; // Private property
+
+  #privateMethod() {
+    console.log("This is a private method"); // Private method
+  }
+
+  publicMethod() {
+    console.log("This is a public method"); // Public method
+    this.#privateMethod(); // Truy cập phương thức private từ bên trong lớp cha
+    console.log(this.#privateProperty); // Truy cập thuộc tính private từ bên trong lớp cha
+  }
+}
+
+class ChildClass extends ParentClass {
+  // Không có phương thức hoặc thuộc tính mới
+}
+
+const childObj = new ChildClass();
+childObj.publicMethod(); // Kế thừa và truy cập phương thức public từ lớp cha, trong đó truy cập phương thức và thuộc tính private của lớp cha
+```
+
+Trong JavaScript, khi một lớp con kế thừa từ một lớp cha, các thuộc tính public sẽ được kế thừa và có thể truy cập từ lớp con. Để kế thừa các thuộc tính public, bạn có thể sử dụng từ khóa super trong constructor của lớp con để gọi constructor của lớp cha và nhận các thuộc tính public từ lớp cha.
+
+- Dưới đây là một ví dụ minh họa:
+
+```js
+class ParentClass {
+  constructor() {
+    this.publicProperty = "public property"; // Public property
+  }
+
+  publicMethod() {
+    console.log("This is a public method"); // Public method
+  }
+}
+
+class ChildClass extends ParentClass {
+  constructor() {
+    super(); // Gọi constructor của lớp cha
+
+    // Các thuộc tính public đã được kế thừa và có thể sử dụng
+    console.log(this.publicProperty);
+    this.publicMethod();
+  }
+}
+
+const childObj = new ChildClass(); // Tạo đối tượng từ lớp con
+```
+
+- Trong ví dụ trên, lớp con ChildClass kế thừa từ lớp cha ParentClass và sử dụng từ khóa super() để gọi constructor của lớp cha. Điều này cho phép lớp con nhận các thuộc tính public từ lớp cha. Trong constructor của lớp con, bạn có thể truy cập và sử dụng các thuộc tính public của lớp cha bằng cách sử dụng this.publicProperty và gọi phương thức public bằng cách sử dụng this.publicMethod().
+
+- Chú ý rằng chỉ các thuộc tính và phương thức public mới được kế thừa trực tiếp và có thể truy cập từ lớp con. Các thuộc tính và phương thức private vẫn chỉ có thể truy cập và sử dụng trong phạm vi của lớp cha và không thể truy cập từ bên ngoài lớp cha hoặc lớp con.

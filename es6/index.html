@@ -142,6 +142,45 @@
       // 'use strict'
       // const a = 1;
       // a = 2;
+
+      class Shape {
+        constructor(color) {
+          this.color = color;
+        }
+
+        getColor() {
+          return this.color;
+        }
+
+        print() {
+          console.log(`This is a ${this.color} shape.`);
+        }
+      }
+
+      // Định nghĩa lớp con 'Rectangle' kế thừa từ lớp cha 'Shape'
+      // class Rectangle extends Shape {
+      //   #name = this.color;
+      //   constructor(color, width, height) {
+      //     super(color);
+      //     this.width = width;
+      //     this.height = height;
+      //   }
+      //   getName() {
+      //     return this.#name;
+      //   }
+      //   getArea() {
+      //     return this.width * this.height;
+      //   }
+      //   print() {
+      //     console.log(
+      //       `This is a ${this.color} rectangle width ${this.width} and height ${this.height}.`
+      //     );
+      //   }
+      // }
+      // const myRectangle = new Rectangle("red", 6, 12);
+      // console.log(myRectangle.getColor());
+      // console.log(myRectangle.getArea());
+      // console.log(myRectangle.print());
     </script>
   </body>
 </html>
