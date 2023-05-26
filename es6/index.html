@@ -143,19 +143,19 @@
       // const a = 1;
       // a = 2;
 
-      class Shape {
-        constructor(color) {
-          this.color = color;
-        }
+      // class Shape {
+      //   constructor(color) {
+      //     this.color = color;
+      //   }
 
-        getColor() {
-          return this.color;
-        }
+      //   getColor() {
+      //     return this.color;
+      //   }
 
-        print() {
-          console.log(`This is a ${this.color} shape.`);
-        }
-      }
+      //   print() {
+      //     console.log(`This is a ${this.color} shape.`);
+      //   }
+      // }
 
       // Định nghĩa lớp con 'Rectangle' kế thừa từ lớp cha 'Shape'
       // class Rectangle extends Shape {
@@ -181,6 +181,27 @@
       // console.log(myRectangle.getColor());
       // console.log(myRectangle.getArea());
       // console.log(myRectangle.print());
+
+      // constructor function
+      const Person = function (firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+      };
+      const that = new Person("That", 1995);
+      const duy = new Person("Duy", 1996);
+      // prototype
+      console.log(that.__proto__);
+      console.log(Person.prototype);
+      Person.prototype.calcAge = function () {
+        return 2023 - this.birthYear;
+      };
+      console.log(that, duy);
+      console.log(that.calcAge()); // call method from prototype
+      console.log(that.__proto__);
+      console.log(Person.prototype);
+      console.log(that.__proto__ === Person.prototype); // true
+      console.log(Person.prototype.isPrototypeOf(that)); // true => tất cả các đối tượng được tạo từ Person thì sẽ có nguyên mẫu là Person.prototype
+      console.log(Person.prototype.isPrototypeOf(Person)); // false => Person.prototype không phải là nguyên mẫu của Person
     </script>
   </body>
 </html>

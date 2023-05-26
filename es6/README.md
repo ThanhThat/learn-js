@@ -228,7 +228,7 @@ const functionName = (parameters) => {
 
 1. Nếu hàm chỉ có một tham số, bạn có thể bỏ qua dấu ngoặc đơn xung quanh tham số.
 2. Nếu phần thân hàm chỉ có một câu lệnh trả về giá trị, bạn có thể bỏ qua cả từ khóa return và dấu ngoặc nhọn {}. Giá 3. trị của câu lệnh đó sẽ được tự động trả về.
-3. Arrow function không có context this riêng, mà nó sử dụng context của hàm gần nhất hoặc context global (nếu không có hàm bao ngoài).
+3. Arrow function không có context `this` riêng, mà nó sử dụng context của hàm gần nhất hoặc context global (nếu không có hàm bao ngoài).
 
 - Dưới đây là một ví dụ minh họa:
 
@@ -474,3 +474,126 @@ const childObj = new ChildClass(); // Tạo đối tượng từ lớp con
 - Trong ví dụ trên, lớp con ChildClass kế thừa từ lớp cha ParentClass và sử dụng từ khóa super() để gọi constructor của lớp cha. Điều này cho phép lớp con nhận các thuộc tính public từ lớp cha. Trong constructor của lớp con, bạn có thể truy cập và sử dụng các thuộc tính public của lớp cha bằng cách sử dụng this.publicProperty và gọi phương thức public bằng cách sử dụng this.publicMethod().
 
 - Chú ý rằng chỉ các thuộc tính và phương thức public mới được kế thừa trực tiếp và có thể truy cập từ lớp con. Các thuộc tính và phương thức private vẫn chỉ có thể truy cập và sử dụng trong phạm vi của lớp cha và không thể truy cập từ bên ngoài lớp cha hoặc lớp con.
+
+## Polymorphism
+
+- Một đối tượng có thể thể hiện các hành vi khác nhau dựa trên kiểu dữ liệu của nó hoặc các đối tượng cha mà nó kế thừa.
+- Thể hiện thông qua việc sử dụng phương thức cùng tên trên các đối tượng khác nhau. Khi gọi phương thức, JavaScript sẽ tìm và thực thi phương thức tương ứng với kiểu dữ liệu của đối tượng được gọi.
+- Ví dụ, giả sử chúng ta có một lớp cha `Shape` và hai lớp con `Circle` và `Rectangle` kế thừa từ lớp cha này. Cả hai lớp con đều có một phương thức `calculateArea()` để tính diện tích của hình. Khi chúng ta gọi phương thức `calculateArea()` trên một đối tượng `Circle` hoặc `Rectangle`, JavaScript sẽ tự động tìm và thực thi phương thức tương ứng với lớp đối tượng đó.
+- Dưới đây là một ví dụ cụ thể về đa hình trong JavaScript:
+
+```js
+class Shape {
+  calculateArea() {
+    console.log("Đang tính diện tích của hình");
+  }
+}
+
+class Circle extends Shape {
+  calculateArea() {
+    console.log("Đang tính diện tích của hình tròn");
+  }
+}
+
+class Rectangle extends Shape {
+  calculateArea() {
+    console.log("Đang tính diện tích của hình chữ nhật");
+  }
+}
+
+let circle = new Circle();
+let rectangle = new Rectangle();
+
+circle.calculateArea(); // Đang tính diện tích của hình tròn
+rectangle.calculateArea(); // Đang tính diện tích của hình chữ nhật
+```
+
+> Trong ví dụ trên, phương thức `calculateArea()` được gọi trên đối tượng `circle` và `rectangle`. Dựa trên kiểu của đối tượng, JavaScript tự động chọn và thực thi phương thức tương ứng từ lớp con tương ứng. Điều này cho phép chúng ta sử dụng cùng một phương thức trên các đối tượng khác nhau một cách dễ dàng và linh hoạt.
+
+## Abstract (trừu tượng)
+
+- Là bỏ qua hoặc ẩn đi những chi tiết không quan trọng.
+
+Ví dụ: Đối tượng điện thoại, ta chỉ quan tâm những đặt điểm bên ngoài: nút bấm, màn hinh hiển thị. Còn những chi tiết bên trong ta không cần quan tâm. Chúng ta chỉ biết bấm nút nguồn thì mở điện thoại, còn bấm nút nguồn bên trong điện thoại phải làm gì ta không cần quan tâm, đó gọi là tính trừu tượng.
+
+```js
+class Phone {
+  charge;
+  volume;
+
+  homeBtn() {}
+  volumeBtn() {}
+  screen() {}
+}
+```
+
+4 tính chất quan trọng trong lập trình hướng đối tượng là:
+
+1. Tính trừu tượng abstract: loại bỏ hoặc ẩn đi những chi tiết không quan trọng
+2. tính đóng gói encapsulation: các thuộc tính và phương thức private sẽ không truy cập được bên ngoài đối tượng.
+3. tính kế thừa inheritance: đối tượng con kế thừa từ đối tượng cha chúng sẽ mang các đặc điểm thuộc tính và phương thức của lớp cha. chỉ những thứ public
+4. tính đa hình Polymorphism: một phương thức có thể được sử dụng ở các đối tượng với các cách khác nhau. ví dụ: lớp động vật, có phương thức di chuyển. lớp rắn kế thừa lớp động vật, vì thế lớp rắn cũng kế thừa pt di chuyển của lớp dv, lúc này di chuyển ở lớp rắn là bò. mặt khác lớp chó kế thừa lớp động vật, pt di chuyển của lớp chó là đi bằng bốn chân. đó gọi là tính đa hình.
+
+## Constructor function and new oparator
+
+```js
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+
+  // never is this => if create 1000 obj then will create 1000 method => so it shouldn't
+  // this.getName = function () {
+  //   return this.firstName;
+  // };
+};
+
+const that = new Person("Thanh That", "1995");
+const jonas = new Person("Jonas", "1991");
+
+const jay = "Jay";
+
+console.log(that instanceof Person); // Output: true
+console.log(jay instanceof Person); // Output: false
+```
+
+### prototypes
+
+- Là nguyên mẫu của đối tượng.
+
+Trong ví dụ Person ở phần trước để xem nguyên mẫu của Person chúng ta có thể làm như sau:
+
+```js
+console.log(Person.prototype);
+```
+
+> Chúng ta sẽ sử dụng nguyên mẫu để tạo phương thức cho đố tượng. Không nên tạo phương thức trong hàm tạo (constructor)
+
+```js
+Person.prototype.getFirstName = function () {
+  return this.firstName;
+};
+
+// Or
+Person.prototype.getAge = function () {
+  return 2023 - this.birthYear;
+
+  // Call method form prototypes
+  console.log(that.getAge());
+  console.log(that.getFirstName());
+
+  console.log(that.__proto__ === Person.prototype); // Output: true
+
+  console.log(Person.prototype.isPrototypeOf(that)); // Output: true
+  // Suy ra, Person.prototype là nguyên mẫu của `that`
+
+  console.log(Person.prototype.isPrototypeOf(Person)); // Output: false
+  // Suy ra, Person.prototype không phải là nguyên mẫu của Person
+
+  // hasOwnProperty: dùng để kiểm tra property (thuộc tính, phương thức) đó có phải là của đối tượng đó không. Phải => true.
+  Person.species = "Homo sapiens";
+  console.log(that.species);
+
+  console.log(that.hasOwnProperty("species")); // Output: false => vì species là của nguyên mẫu.
+
+};
+```
